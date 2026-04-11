@@ -4,7 +4,10 @@ import os
 import chromadb
 from chromadb.utils import embedding_functions
 
-CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma_db")
+# Get the absolute path to the directory containing this file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Construct the absolute path to the chroma_db folder
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
 
 # Load the same embedding model used during ingestion
 embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
