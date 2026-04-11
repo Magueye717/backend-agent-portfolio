@@ -9,24 +9,31 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Construct the absolute path to the chroma_db folder
 CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
 
-# Load the same embedding model used during ingestion
-embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
-)
+# Lazy-loaded globals — nothing loads at startup
+_embedding_fn = None
+_collection = None
 
-# Connect to the persisted ChromaDB (read-only at query time)
-_client = chromadb.PersistentClient(path=CHROMA_PATH)
-_collection = _client.get_collection(
-    name="career",
-    embedding_function=embedding_fn
-)
+def get_collection():
+    global _embedding_fn, _collection
+    if _collection is None:
+        _embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2"
+        )
+        client = chromadb.PersistentClient(path=CHROMA_PATH)
+        _collection = client.get_collection(
+            name="career",
+            embedding_function=_embedding_fn
+        )
+    return _collection
+
 
 def retrieve(query: str, n_results: int = 4) -> list[str]:
     """
     Find the N most relevant chunks for the query.
     ChromaDB embeds the query with the same model and does cosine search.
     """
-    results = _collection.query(
+    collection = get_collection()  # loads only on first call
+    results = collection.query(
         query_texts=[query],
         n_results=n_results
     )
