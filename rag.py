@@ -1,44 +1,51 @@
 # backend/rag.py
-#lazy loading of ChromaDB client and embedding function
 
 import os
+import numpy as np
 import chromadb
-from chromadb.utils import embedding_functions
+from chromadb import Documents, EmbeddingFunction, Embeddings
+from huggingface_hub import InferenceClient
 
-# Get the absolute path to the directory containing this file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Construct the absolute path to the chroma_db folder
 CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
 
-# Lazy-loaded globals — nothing loads at startup
-_embedding_fn = None
+HF_API_KEY = os.getenv("HF_API_KEY")
+EMBED_MODEL = "intfloat/multilingual-e5-large"
+
+
+class HuggingFaceEmbeddingFunction(EmbeddingFunction):
+    def __init__(self):
+        self.client = InferenceClient(provider="hf-inference", api_key=HF_API_KEY)
+
+    def __call__(self, input: Documents) -> Embeddings:
+        result = self.client.feature_extraction(input, model=EMBED_MODEL)
+        # result is a numpy array, convert to list of lists for ChromaDB
+        arr = np.array(result)
+        if arr.ndim == 3:
+            arr = arr.mean(axis=1)  # average token embeddings if needed
+        return arr.tolist()
+
+
+# Lazy-loaded global
 _collection = None
 
 def get_collection():
-    global _embedding_fn, _collection
+    global _collection
     if _collection is None:
-        _embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
-        )
         client = chromadb.PersistentClient(path=CHROMA_PATH)
         _collection = client.get_collection(
             name="career",
-            embedding_function=_embedding_fn
+            embedding_function=HuggingFaceEmbeddingFunction()
         )
     return _collection
 
 
 def retrieve(query: str, n_results: int = 4) -> list[str]:
-    """
-    Find the N most relevant chunks for the query.
-    ChromaDB embeds the query with the same model and does cosine search.
-    """
-    collection = get_collection()  # loads only on first call
+    collection = get_collection()
     results = collection.query(
         query_texts=[query],
         n_results=n_results
     )
-    # results["documents"] is a list-of-lists (one per query)
     return results["documents"][0]
 
 
