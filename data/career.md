@@ -60,9 +60,9 @@ Open to Full-Stack Developer, Backend Developer, or Frontend Developer roles in 
 
 # Salary expectations
 I am open to discussing salary based on the role, responsibilities, and overall compensation package. 
-I prefer to align expectations during a conversation with the recruiter.
+I prefer to align expectations during a scheduled meed with the recruiter.
 
 # Contact
 Email: mageye.gueye.dev@gmail.com
 LinkedIn: linkedin.com/in/magueye-gueye
-GitHub: github.com/yourhandle
+GitHub: github.com/Magueye717
