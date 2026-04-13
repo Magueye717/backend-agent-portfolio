@@ -1,30 +1,35 @@
-<!-- backend/data/career.md -->
-
 # About me
 My name is Magueye Gueye. I am a software engineer with 6+ years of experience
 specialising in full-stack web development. I am based in Dakar, Senegal.
 
 # Current role
 Backend Developer at Gozem (May 2023–present)
-- Accelerated API response times by 20% by implementing advanced caching strategies and query optimizations
-- Eliminated Admin panel timeouts by refactoring data logic and DB models, restoring critical operational efficiency
-- Built a scalable CRM service for automated bulk messaging and status logging, enhancing customer outreach and analytics
-- Technologies: Node.js, TypeScript, REST API, Databases
+- Design and deploy microservices using Node.js and Fastify
+- Write unit and integration tests with Jest; containerize services with Docker
+- Optimize API performance via Redis caching and database query optimization
+- Use Cursor and GitHub Copilot to accelerate feature development
+- Technologies: Node.js, REST API, Jquery, JavaScript, Fastify, Mongo DB
 
 # Previous experience
+
+## BeOpen IT — Sofware Engineer (April September 2025)
+- Architected a microservices-based backend with 3 independent services communicating via a gateway
+- Built RESTful APIs and optimized database schemas to ensure high performance and data reliability
+- Contributed to enhancing the homepage with Next.js, improving SEO and load speed
+- Technologies: React.js, Next.js, Node.js, REST API, JavaScript, TypeScript, MySql, Docker
 
 ## Paps — Frontend Developer (January 2022–May 2023)
 - Engineered and maintained responsive user interfaces, leading to a measurable increase in user engagement and satisfaction scores
 - Architected and optimized both REST and GraphQL endpoints, improving data fetching efficiency and reducing query time by 10%
 - Created a library of reusable UI components in Storybook, standardizing the design process and reducing frontend development time for new features by 35%
-- Technologies: React.js, GraphQL, REST API, Storybook, JavaScript, TypeScript
+- Technologies: React.js, React Native, Node.js, GraphQL, REST API, Storybook, JavaScript, TypeScript
 
 ## IP3 Conseil SN — Software Engineer & Scrum Master (April 2019–January 2022)
 - Engineered scalable web solutions across multiple languages and frameworks to meet specific business needs and boost performance
 - Elicited and analyzed client requirements and provided technical support to guide development
 - Led database modeling & migrations, improving integrity and eliminating inconsistencies
 - Drove Agile Scrum ceremonies as Scrum Master, raising productivity 10% and ensuring timely deliveries
-- Technologies: Multiple frameworks, Databases, Agile/Scrum
+- Technologies: Laravel, Angular, Java EE, MySql, Vue.js, React.js, Flutter, Agile/Scrum
 
 # Skills
 Languages: JavaScript, TypeScript, Python, PHP, SQL
@@ -50,7 +55,7 @@ Built an AI career agent using Flask, RAG with ChromaDB, and React.
 Stack: Python, sentence-transformers, ChromaDB, Ollama, Vite.
 
 ## Performance Optimization at Gozem
-Implemented caching strategies and query optimizations that reduced API response times by 20% for 100k+ users.
+Implemented caching strategies and query optimizations that reduced API response.
 
 ## Reusable UI Component Library
 Created a Storybook component library at Paps that reduced frontend development time by 35%.
